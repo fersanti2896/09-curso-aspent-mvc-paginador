@@ -1,5 +1,7 @@
 ﻿using Dominio.IServicios;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Pedidos.Controllers {
@@ -12,7 +14,17 @@ namespace Pedidos.Controllers {
 
         [HttpPost]
         public async Task<ActionResult> ConsultaPedidosGeneral() {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             var lista = await _IConsultaPedidoService.ConsultaPedidosGeneral();
+
+            stopwatch.Stop();
+            TimeSpan ts = stopwatch.Elapsed;
+
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                ts.Hours, ts.Minutes, ts.Seconds,
+                ts.Milliseconds / 10);
 
             return PartialView(lista);
         }

@@ -12,10 +12,6 @@ namespace Pedidos.Controllers {
         }
 
         public IActionResult Index() {
-            TempData["Llave1"] = "La llave 1";
-            ViewData["Llave2"] = "La llave 2";
-
-            ViewBag.Llave3 = "La llave 3";
 
             return View();
         }
