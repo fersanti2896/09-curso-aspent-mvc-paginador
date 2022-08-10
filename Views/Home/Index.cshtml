@@ -9,7 +9,28 @@
     $.noConflict();
     $(document).ready(function() {
         $.noConflict();
-        envioGenericos("/ConsultaInformacion/ConsultaPedidosGeneral", null, "TablaResultados")
         $('#tablaResultadosFinal').DataTable();
+        ConsultaGrid();
     })
+
+    function ConsultaGrid(page) {
+        var Pagina = 1;
+
+        if( page != undefined ) {
+            Pagina = page;
+        } else {
+            Pagina = $("#PaginaConsulta").val()
+            
+            if( Pagina == "" ) {
+                Pagina = $("#PaginaActual").val()
+            }
+        }
+
+        var modelo = {
+            Pagina:Pagina,
+            FilasPorPagina:5
+        }
+
+        envioGenericos("/ConsultaInformacion/ConsultaPedidosGeneral", modelo, "TablaResultados");
+    }
 </script>   

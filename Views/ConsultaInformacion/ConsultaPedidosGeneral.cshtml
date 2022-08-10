@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Transporte.PedidoDTO>
+﻿@model Transporte.PaginadorDTO<Transporte.PedidoDTO>
 
 <h1>Bandeja de Seguimiento</h1>
 <br>
@@ -23,7 +23,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var item in Model)
+				@foreach (var item in Model.Coleccion)
 				{
 					<tr>
 						<td>
@@ -45,3 +45,22 @@
     </div>
 </div>
 
+<div class="row">
+	@Html.HiddenFor(Model => Model.Pagina.PaginaActual, new { id = "PaginaActual" });
+	@{
+		Model.Pagina.AccionAnterior  = "tooltip.hide();ConsultaPaginaAnterior();";
+		Model.Pagina.AccionSiguiente = "tooltip.hide();ConsultaPaginaSiguiente();";
+		Model.Pagina.AccionConsulta  = "tooltip.hide();ConsultaGrid();";
+	}
+	@Html.Partial("~/Views/Shared/FooterTabla.cshtml", Model.Pagina);
+</div>
+
+<script type="text/javascript">
+	function ConsultaPaginaSiguiente() {
+		ConsultaGrid(@Model.Pagina.Siguiente);
+	}
+
+	function ConsultaPaginaAnterior() {
+		ConsultaGrid(@Model.Pagina.Anterior);
+	}
+</script>

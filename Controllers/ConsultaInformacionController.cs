@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Transporte;
 
 namespace Pedidos.Controllers {
     public class ConsultaInformacionController : Controller {
@@ -13,11 +14,11 @@ namespace Pedidos.Controllers {
         }
 
         [HttpPost]
-        public async Task<ActionResult> ConsultaPedidosGeneral() {
+        public async Task<ActionResult> ConsultaPedidosGeneral(ModeloConsultaDTO modelo) {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            var lista = await _IConsultaPedidoService.ConsultaPedidosGeneral();
+            var lista = await _IConsultaPedidoService.ConsultaPedidosGeneral(modelo);
 
             stopwatch.Stop();
             TimeSpan ts = stopwatch.Elapsed;
